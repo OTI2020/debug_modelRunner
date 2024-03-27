@@ -10,7 +10,7 @@ if (!window.Models) { window.Models = {}; }
 
 
 // Simple spread rate model used for testing. Will set the spread rate to a constant.
-window.Models.simpleSpreadRateModel = (SimpleSpreadRateModel = class SimpleSpreadRateModel {
+window.Models.SimpleSpreadRateModel = (SimpleSpreadRateModel = class SimpleSpreadRateModel {
 
     constructor() {
         this.spread_rate = 100.0;
