@@ -1,0 +1,30 @@
+@startuml
+allowmixing
+class Point {
+  + index: JSON
+  + position: JSON
+  + runner: JSON
+  + ignition_time: Numeric
+  + extinguish_time: Numeric
+  + spread_rate: Numeric
+  + neighbours: ARRAY of Points
+  - is_ignited()
+  - param()
+  - clean()
+}
+
+Rectangle init_Point
+Rectangle Neighbour_1
+Rectangle Neighbour_2
+Rectangle Neighbour_3
+Rectangle Neighbour_4
+
+
+init_Point <--> Neighbour_1
+Neighbour_1 <--> Neighbour_2
+init_Point <--> Neighbour_2
+Neighbour_2 <--> Neighbour_3
+init_Point <--> Neighbour_3
+Neighbour_3 <--> Neighbour_4
+
+@enduml
