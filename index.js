@@ -1,9 +1,11 @@
+// Start chain of function calls
+
 try {
     const runner = new Models.ModelRunner();
     runner.init();
     let counter = 0
     function runSimulation() {
-        console.log(counter);
+        console.log("Iteration:" + counter);
         runner.step();
         // Check for termination condition (e.g., number of steps)
         counter++
