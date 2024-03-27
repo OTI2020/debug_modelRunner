@@ -38,7 +38,9 @@ Models.Point = (Point = class Point {
     is_ignited(t0, t1) {
         try {
             console.log(`call ${this.is_ignited}`);
-            return (this.ignition_time < t1) && (this.extinguish_time >= t1); //boolean type
+            return (this.ignition_time < t1) && (this.extinguish_time >= t0); //boolean type
+            // original line: return (this.ignition_time < t1) && (this.extinguish_time >= t1); 
+            // TODO #1 - I changed t1 to t0, need to be proofed 
         } catch (error) {
             console.error(`is_ignited Point: ${error.message}`);
         }
