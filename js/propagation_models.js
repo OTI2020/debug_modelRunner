@@ -28,6 +28,7 @@ window.Models.EllipticalPropagationModel = (EllipticalPropagationModel = class E
 
             // adjust spread rate based on terrain and wind
             const slope = flat === true ? 0 : from_point.param('SLOPE'); // in degrees
+            console.log(`slope is ${slope}`);
             if (slope == null) { return; }
 
             // TODO: use a better approximation for slope - there's some empirical exp() stuff somewhere
