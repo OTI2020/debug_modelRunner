@@ -1,6 +1,3 @@
-// this might be illigal. I do not know.
-// this Model is copied from the online Tool
-
 let SimpleBurnModel;
 if (!window.Models) { window.Models = {}; }
 
