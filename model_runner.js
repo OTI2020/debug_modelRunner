@@ -113,9 +113,9 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
 
     constructor() {
         try {
-            this.spread_rate_model = 1 // null; //new Models.SimpleSpreadRateModel
-            this.propagation_model = 1 // null; //new Models.EllipticalPropagationModel
-            this.burn_model = 1 // null; //new Models.SimpleBurnModel
+            this.spread_rate_model = new Models.SimpleSpreadRateModel
+            this.propagation_model = new Models.EllipticalPropagationModel
+            this.burn_model = new Models.SimpleBurnModel
             this.grid = null;
 
             this.t0 = 0;
