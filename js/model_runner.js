@@ -38,7 +38,7 @@ Models.Point = (Point = class Point {
     is_ignited(t0, t1) {
         try {
             console.log(`call ${this.is_ignited}`);
-            return (this.ignition_time < t1) && (this.extinguish_time >= t1);
+            return (this.ignition_time < t1) && (this.extinguish_time >= t1); //boolean type
         } catch (error) {
             console.error(`is_ignited Point: ${error.message}`);
         }
@@ -115,7 +115,11 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
         try {
             this.spread_rate_model = new Models.SimpleSpreadRateModel
             this.propagation_model = new Models.EllipticalPropagationModel
-            this.burn_model = new Models.SimpleBurnModel
+            try {
+                // this.burn_model = new Models.SimpleBurnModel
+            } catch {
+                console.error(`burn_model ${error.message}`);
+            }
             this.grid = null;
 
             this.t0 = 0;
