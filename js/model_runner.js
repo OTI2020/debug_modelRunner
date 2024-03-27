@@ -37,8 +37,8 @@ Models.Point = (Point = class Point {
 
     is_ignited(t0, t1) {
         try {
-            console.log(`call ${this.is_ignited}`);
-            return (this.ignition_time < t1) && (this.extinguish_time >= t0); //boolean type
+            console.log(`call is_ignited`);
+            return (this.ignition_time < t1) && (this.extinguish_time >= t1); //boolean type
             // original line: return (this.ignition_time < t1) && (this.extinguish_time >= t1); 
             // TODO #1 - I changed t1 to t0, need to be proofed 
         } catch (error) {
@@ -117,11 +117,7 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
         try {
             this.spread_rate_model = new Models.SimpleSpreadRateModel
             this.propagation_model = new Models.EllipticalPropagationModel
-            try {
-                // this.burn_model = new Models.SimpleBurnModel
-            } catch {
-                console.error(`burn_model ${error.message}`);
-            }
+            this.burn_model = new Models.SimpleBurnModel
             this.grid = null;
 
             this.t0 = 0;
@@ -140,6 +136,7 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
 
     neighbours(point) {
         try {
+            console.log("> > > call neughbours");
 
             if (point.neighbours) { return point.neighbours; }
             const neighbour = (x, y) => {
@@ -203,9 +200,21 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
                         ))
                     ))
                 );
+
+                /*
+                console.log("+++ grid LOGs in init() +++"); // only for debugging
                 console.log("number of objects in the grid: " + this.grid.length * this.grid[0].length);
                 console.log("first line in grid: " + this.grid[0]);
-                console.log("first obj in grid: " + this.grid[0][0]);
+                console.log("first point in grid: " + this.grid[0][0]);
+                console.log("first index in grid: " + JSON.stringify(this.grid[0][0].index));
+                console.log("first position in grid: " + JSON.stringify(this.grid[0][0].position));
+                console.log("first runner in grid: " + this.grid[0][0].runner);
+                console.log("first ignition_time in grid: " + JSON.stringify(this.grid[0][0].ignition_time));
+                console.log("first extinguish_time in grid: " + JSON.stringify(this.grid[0][0].extinguish_time));
+                console.log("first _param_cache in grid: " + JSON.stringify(this.grid[0][0]._param_cache));
+                console.log("first spread_rate in grid: " + JSON.stringify(this.grid[0][0].spread_rate));
+                */
+
                 return this.grid
             } catch (error) {
                 console.error(`${error.message}`);
@@ -217,6 +226,7 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
 
     step() {
         try {
+            console.log("CALL step()");
             // calculate end of timestep
             let from_point, x, y;
             let asc2, end2;
@@ -258,7 +268,10 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
             // ignited = _.sortBy(ignited, 'ignition_time')
 
             // now process the list of ignited points until there are none left
-            while (ignited.length > 0) {
+            let debug_loop_counter = 0 // only for debugging
+            while (debug_loop_counter < 5) {//(ignited.length > 0) {
+                debug_loop_counter++
+                console.log(`CALL outer while-loop in step() +++ loop_counter: ${debug_loop_counter}`);
                 from_point = ignited.shift(); // get first point in the list
 
                 // TODO: this is a performance optimisation, but may lead to some aliasing artifacts. Should check if looking at the neighbours' neighbours makes it better. With the noise introduced by terrain and other variations, this should not have a noticable effect though...
@@ -270,6 +283,8 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
                 const to_points_processed = [];
 
                 while (to_points.length > 0) {
+                    console.log("CALL inner while-loop in step() ");
+
                     const to_point = to_points.shift();
 
                     to_points_processed.push(to_point);
