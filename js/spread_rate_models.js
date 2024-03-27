@@ -18,6 +18,7 @@ window.Models.SimpleSpreadRateModel = (SimpleSpreadRateModel = class SimpleSprea
 
     calculate_spread_rate(point, t0, t1) {
         try {
+            console.log("CALL calculate_spread_rate in SimpleSpreadRateModel");
             // r = Math.random()
 
             // point.theta = if t0 < 250 then 0 else Math.PI / 2.0
