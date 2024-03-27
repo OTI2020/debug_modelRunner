@@ -128,7 +128,7 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
             this.t_index = 0;
 
             this.parameters = {
-                EXTENTS: { x: 10, y: 10 },
+                EXTENTS: { x: 15, y: 10 },
                 RESOLUTION: { x: 1, y: 1, t: 1 },
                 SIMULATION: { steps: 15 },
                 TOPOGRAPHY: { flat: true }
