@@ -1,4 +1,3 @@
-
 try {
     const runner = new Models.ModelRunner();
     runner.init();
