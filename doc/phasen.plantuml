@@ -1,0 +1,22 @@
+@startuml
+robust "Web Browser" as JS
+concise "Web User" as WU
+
+
+WU is Configuring
+@0
+ JS is waiting
+@1
+ WU is Waiting
+ JS is "initializing ModelRunner"
+@2
+ JS is "calculating simulation"
+@3
+ JS is "visualizing simulation"
+@4
+ JS is waiting
+ WU is Study
+@5
+ WU is "..."
+@6
+@enduml
