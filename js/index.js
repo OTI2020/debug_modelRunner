@@ -1,5 +1,5 @@
 // Start chain of function calls
-
+console.time();
 try {
     const runner = new Models.ModelRunner();
     console.log(`init ModelRunner: ${JSON.stringify(runner, null, 10)}`)
@@ -21,3 +21,4 @@ try {
 } catch (error) {
     console.error(`Error in html script: ${error.message}`);
 }
+console.timeEnd();
