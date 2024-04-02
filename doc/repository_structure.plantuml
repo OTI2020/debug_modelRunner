@@ -1,0 +1,31 @@
+@startuml
+To have a Tree, you have to start with {T and to use + to denote hierarchy.
+Title Stand 02.04.2024
+ @startsalt
+ {
+ {T
+<b> Dateien im debug_modelRunner Repository | <b>Dateitypen   | <b>im Anhang gedruckt 
+
+ + <&folder> documentation
+ ++ <&code> circular_structure_points | plantuml | nein
+ ++ <&code> phasen | plantuml | nein
+ ++ <&code> repository_structure | plantuml | nein
+
+ + <&folder> out\documentation
+ ++ <&image> ... (generated from plantuml) |png  | nein
+ ++ <&image> ... | png | nein
+ ++ <&image> repository_structure | png | ja
+
+ + <&folder> javascript
+ ++ <&code> burn_models | js | ja
+ ++ <&code> index | js | ja
+ ++ <&code> model_runner | js | ja
+ ++ <&code> propagation_models | js | ja
+ ++ <&code> spread_rate_model | js | ja
+
+ + <&code> index | html | ja
+ + <&info> README | md | ja
+ }
+ }
+ @endsalt
+@enduml
