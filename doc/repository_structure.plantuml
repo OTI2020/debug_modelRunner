@@ -24,7 +24,7 @@ Title Stand 02.04.2024
  ++ <&code> spread_rate_model | js | ja
 
  + <&code> index | html | ja
- + <&info> README | md | ja
+ + <&info> README | md | nein
  }
  }
  @endsalt
