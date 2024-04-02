@@ -1,4 +1,34 @@
-// Start chain of function calls
+timer()
+var start
+var time
+function test_run() {
+    start = performance.now();
+    const runner = new Models.ModelRunner();
+    console.log(`init ModelRunner: ${JSON.stringify(runner, null, 10)}`)
+    runner.init()
+    runner.step()
+    time = performance.now();
+    console.log('Dauer: ' + (time - start) + ' ms.');
+    console.clear();
+}
+
+
+function timer() {
+    var runtimes = [];
+
+    for (var i = 0; i < 100; i++) {
+        test_run();
+        runtimes.push(time - start);
+    }
+
+    console.log('list of runtimes:');
+    const csvString = runtimes.join(",");
+    console.log(csvString);
+    console.log(runtimes);
+}
+
+
+/*
 console.time();
 try {
     const runner = new Models.ModelRunner();
@@ -22,3 +52,4 @@ try {
     console.error(`Error in html script: ${error.message}`);
 }
 console.timeEnd();
+*/
