@@ -2,7 +2,7 @@
 console.time();
 try {
     const runner = new Models.ModelRunner();
-    console.log(`init ModelRunner: ${JSON.stringify(runner, null, 10)}`)
+    // console.log(`init ModelRunner: ${JSON.stringify(runner, null, 10)}`)
     runner.init();
     runner.step() // how many times to calls this function???
     console.log("+++ LOGs in index.js +++");
@@ -22,3 +22,4 @@ try {
     console.error(`Error in html script: ${error.message}`);
 }
 console.timeEnd();
+
