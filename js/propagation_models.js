@@ -9,6 +9,31 @@ if (!window.Models) { window.Models = {}; }
 window.Models.PropagationModel = (PropagationModel = class PropagationModel { }); //extends Models.Model
 
 
+
+/**
+ * @class 
+ * @name EllipticalPropagationModel
+ * @description This class implements a model for simulating elliptical fire propagation between two points in the landscape grid.
+ * 
+ * 
+ * @extends PropagationModel
+ * @see PropagationModel
+ * 
+ * 
+ * @constructor
+ * @param {Object} [parameters] - Optional configuration parameters for the model.
+ * 
+ * 
+ * @function
+ * @name calculate_arrival_time
+ * @description Calculates the estimated arrival time of a fire front at a target point from a source point within a specific time range.
+ * @param {Models.Point} from_point - The point where the fire originates.
+ * @param {Models.Point} to_point - The target point where the fire arrival time is to be calculated.
+ * @param {number} t0 - The start time of the range.
+ * @param {number} t1 - The end time of the range.
+ * @param {boolean} [flat=false] - A flag indicating a flat terrain (default is false).
+ * @returns {number} The estimated arrival time of the fire front at the target point, or null if calculation fails.
+ */
 window.Models.EllipticalPropagationModel = (EllipticalPropagationModel = class EllipticalPropagationModel extends PropagationModel {
 
     calculate_arrival_time(from_point, to_point, t0, t1, flat) {
