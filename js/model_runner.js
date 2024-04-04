@@ -111,7 +111,57 @@ Models.Point = (Point = class Point {
 ////////////////////////////
 // Class ModelRunner
 ////////////////////////////
-
+/**
+ * @class ModelRunner
+ * @description This class simulates the spread of fire across a grid-based landscape.
+ * 
+ * 
+ * @constructor
+ * @param {Object} [parameters] - An optional configuration object for the simulation.
+ * @property {Object} parameters - The simulation parameters.
+ * @property {Object} parameters.EXTENTS - The extent of the simulated landscape (width and height in number of cells).
+ * @property {Object} parameters.RESOLUTION - The resolution of the simulation grid (cell size in x, y, and time dimensions).
+ * @property {Object} parameters.SIMULATION - The simulation settings (number of timesteps).
+ * @property {Object} parameters.TOPOGRAPHY - Options related to the simulated topography (currently supports a flat surface only).
+ * @property {Models.SimpleSpreadRateModel} spread_rate_model - An instance of the spread rate model used in the simulation.
+ * @property {Models.EllipticalPropagationModel} propagation_model - An instance of the propagation model used in the simulation.
+ * @property {Models.SimpleBurnModel} burn_model - An instance of the burn model used in the simulation.
+ * @property {Array<Array<Point>>} grid - A 2D array representing the simulated landscape grid.
+ * @property {number} t0 - The current time step (initial time is 0).
+ * @property {number} t_index - The current time step index (starts from 0).
+ * 
+ * 
+ * @function
+ * @name neighbours
+ * @description Calculates the neighbouring points around a given point in the grid.
+ * @param {Point} point - The point for which to find neighbours.
+ * @returns {Array<Point>} An array containing the neighbouring points.
+ * 
+ * 
+ * @function
+ * @name progress
+ * @description Sets a callback function to receive progress updates during the simulation.
+ * @param {function} progress_callback - The callback function to be called with progress updates.
+ * 
+ * 
+ * @function
+ * @name report_progress
+ * @description Sends a progress update message with an optional progress value to the callback function (if set).
+ * @param {string} message - The progress update message.
+ * @param {number} [progress] - The progress value (between 0 and 100).
+ * 
+ * 
+ * @function
+ * @name init
+ * @description Initializes the simulation grid and models.
+ * @returns {Array<Array<Point>>} The initialized grid.
+ * 
+ * 
+ * @function
+ * @name step
+ * @description Executes one time step of the simulation, advancing the fire spread and burn effects.
+ * @returns {string} A progress message indicating the completion of the time step.
+ */
 Models.ModelRunner = (ModelRunner = class ModelRunner {
 
     constructor() {
