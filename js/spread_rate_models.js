@@ -35,6 +35,27 @@ window.Models.SimpleSpreadRateModel = (SimpleSpreadRateModel = class SimpleSprea
 });
 
 
+
+//////////////////////////////////
+// Class McArthurSpreadRateModel
+//////////////////////////////////
+
+/**
+ * @class 
+ * @name McArthurSpreadRateModel
+ * @description This class implements the McArthur fire spread rate model for calculating the fire spread rate at a point in the landscape grid.
+
+ * @constructor
+ * @param {Object} [parameters] - Optional configuration parameters for the model.
+
+ * @function
+ * @name calculate_spread_rate
+ * @description Calculates the fire spread rate at a point within a specific time range.
+ * @param {Models.Point} point - The point for which to calculate the spread rate.
+ * @param {number} t0 - The start time of the range.
+ * @param {number} t1 - The end time of the range.
+ * @returns {void}
+ */
 window.Models.McArthurSpreadRateModel = (McArthurSpreadRateModel = class McArthurSpreadRateModel {
 
     calculate_spread_rate(point, t0, t1) {
@@ -71,6 +92,26 @@ window.Models.McArthurSpreadRateModel = (McArthurSpreadRateModel = class McArthu
     }
 });
 
+
+//////////////////////////////////
+// Class CheneySpreadRateModel
+//////////////////////////////////
+
+/**
+ * @class CheneySpreadRateModel
+ * @description This class implements the Cheney spread rate model for calculating the fire spread rate at a point in the landscape grid.
+
+ * @constructor
+ * @param {Object} [parameters] - Optional configuration parameters for the model.
+
+ * @function
+ * @name calculate_spread_rate
+ * @description Calculates the fire spread rate at a point within a specific time range.
+ * @param {Models.Point} point - The point for which to calculate the spread rate.
+ * @param {number} t0 - The start time of the range.
+ * @param {number} t1 - The end time of the range.
+ * @returns {void}
+ */ 
 window.Models.CheneySpreadRateModel = (CheneySpreadRateModel = class CheneySpreadRateModel {
 
     calculate_spread_rate(point, t0, t1) {
