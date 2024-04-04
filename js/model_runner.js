@@ -37,7 +37,8 @@ Models.Point = (Point = class Point {
 
     is_ignited(t0, t1) {
         try {
-            console.log(`call is_ignited`);
+            let log_value = (this.ignition_time < t1) && (this.extinguish_time >= t1)
+            console.log(`CALL is_ignited= ${log_value} +++ t0=${t0} +++ t1=${t1}+++ this.ignition_time=${this.ignition_time} +++ this.extinguish_time=${this.extinguish_time}`);
             return (this.ignition_time < t1) && (this.extinguish_time >= t1); //boolean type
             // original line: return (this.ignition_time < t1) && (this.extinguish_time >= t1); 
             // TODO #1 - I changed t1 to t0, need to be proofed 
@@ -50,7 +51,7 @@ Models.Point = (Point = class Point {
     param(group_name, parameter) {
         try {
 
-            console.log(`call ${this.param}`);
+            console.log(`CALL param ${this.param}`);
             // lookup param from the cache
             let val = (this._param_cache[group_name] || (this._param_cache[group_name] = {}))[parameter];
             if (val) { return val; }
@@ -95,7 +96,7 @@ Models.Point = (Point = class Point {
 
     clean() {
         try {
-            console.log(`call ${this.clean}`);
+            console.log(`CALL clean ${this.clean}`);
             this._param_cache = null;
             return this.runner = null;
         } catch (error) {
@@ -124,7 +125,7 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
             this.t_index = 0;
 
             this.parameters = {
-                EXTENTS: { x: 15, y: 10 },
+                EXTENTS: { x: 10, y: 10 },
                 RESOLUTION: { x: 1, y: 1, t: 1 },
                 SIMULATION: { steps: 15 },
                 TOPOGRAPHY: { flat: true }
@@ -136,7 +137,7 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
 
     neighbours(point) {
         try {
-            console.log("> > > call neughbours");
+            console.log("CALL neughbours");
 
             if (point.neighbours) { return point.neighbours; }
             const neighbour = (x, y) => {
@@ -182,15 +183,14 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
     init() {
         try {
 
-            console.log(`calls init()`);
+            console.log(`CALL init`);
             try {
                 this.report_progress("Initialising model", 0);
                 // initialize the grid
                 this.report_progress("Initialising grid", 0);
-                console.log(this.report_progress());
-                console.log(this.parameters.EXTENTS);
-                console.log(this.parameters.RESOLUTION);
-                console.log(this.grid);
+                console.log(`report: ${this.report_progress()}`);
+                console.log(`Extents: ${JSON.stringify(this.parameters.EXTENTS)}`);
+                console.log(`Resolution: ${JSON.stringify(this.parameters.RESOLUTION)}`);
                 this.grid = (
                     __range__(0, this.parameters.EXTENTS.y - 1, true).map((y) => (
                         __range__(0, this.parameters.EXTENTS.x - 1, true).map((x) => new Point(
@@ -226,7 +226,7 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
 
     step() {
         try {
-            console.log("CALL step()");
+            console.log("CALL step");
             // calculate end of timestep
             let from_point, x, y;
             let asc2, end2;
@@ -234,6 +234,7 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
             const t1 = this.t0 + this.parameters.RESOLUTION.t;
 
             const progress = (100.0 * this.t_index) / this.parameters.SIMULATION.steps;
+            console.log(`log progress: ${progress}`);
 
             this.report_progress(`Step ${this.t_index} - starting calculation for time ${this.t0}`, progress);
             // calculate everything for time step t
@@ -333,6 +334,16 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
     }
 });
 
+
+
+/**
+ * function __range__
+ * This function generates a numerical range.
+ * @param {number} left  - The left boundary of the interval (inclusive).
+ * @param {number} right - The right boundary ... (exclusive by default).
+ * @param {boolean} [inclusive=false] - Whether to include the right boundary as well.
+ * @returns {number[]} Array containing the numbers within specified range.
+ */
 function __range__(left, right, inclusive) {
     try {
 
