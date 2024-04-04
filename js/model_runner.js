@@ -20,7 +20,45 @@ const {
 ////////////////////////////
 // Class Point
 ////////////////////////////
-
+/**
+ * @class 
+ * @name Point
+ * @description This class represents a single point (cell) within the simulated landscape grid.
+ * 
+ * 
+ * @constructor
+ * @param {Object} index - The index of the point within the grid (x, y coordinates).
+ * @param {Object} position - The real-world position of the point (x, y, z coordinates).
+ * @param {ModelRunner} runner - The ModelRunner instance this point belongs to.
+ * @property {Object} index - The index of the point within the grid (x, y coordinates).
+ * @property {Object} position - The real-world position of the point (x, y, z coordinates).
+ * @property {ModelRunner} runner - The ModelRunner instance this point belongs to.
+ * @property {number} ignition_time - The time step at which the point ignites (Infinity initially).
+ * @property {number} extinguish_time - The time step at which the point extinguishes (Infinity initially).
+ * @property {Object} _param_cache - An internal cache to store retrieved parameter values.
+ * 
+ * 
+ * @function
+ * @name is_ignited
+ * @description Checks if the point is ignited within a specific time range.
+ * @param {number} t0 - The start time of the range.
+ * @param {number} t1 - The end time of the range.
+ * @returns {boolean} True if the point is ignited within the specified time range, false otherwise.
+ * 
+ * 
+ * @function
+ * @name param
+ * @description Retrieves a parameter value for the point from the model configuration.
+ * @param {string} group_name - The name of the parameter group.
+ * @param {string} parameter - The name of the specific parameter within the group.
+ * @returns {number|null} The parameter value for the point, or null if not found.
+ * 
+ * 
+ * @function
+ * @name clean
+ * @description Clears the internal parameter cache of the point.
+ * @returns {void}
+ */  
 Models.Point = (Point = class Point {
     constructor(index, position, runner) {
         try {
