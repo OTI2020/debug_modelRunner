@@ -387,8 +387,9 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
 
 
 /**
- * function __range__ outside a class
- * This function generates a numerical range.
+ * @function 
+ * @name __range__ 
+ * @description - This function outside a class generates a numerical range.
  * @param {number} left  - The left boundary of the interval (inclusive).
  * @param {number} right - The right boundary ... (exclusive by default).
  * @param {boolean} [inclusive=false] - Whether to include the right boundary as well.
