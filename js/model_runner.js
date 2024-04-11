@@ -61,33 +61,34 @@ const {
  */
 Models.Point = (Point = class Point {
     constructor(index, position, runner) {
-   
-            this.index = index;
-            this.position = position;
-            this.runner = runner;
-            this.ignition_time = 0 // Infinity; // ignition time
-            this.extinguish_time = 2 // Infinity;
-            this._param_cache = {};
+
+        this.index = index;
+        this.position = position;
+        this.runner = runner;
+        this.ignition_time = 0 // Infinity; // ignition time
+        this.extinguish_time = 2 // Infinity;
+        this._param_cache = {};
 
     }
 
     is_ignited(t0, t1) {
-   
-            let log_value = (this.ignition_time < t1) && (this.extinguish_time >= t1)
-            console.log(`CALL in Point: is_ignited = ${log_value} +++ t0 = ${t0} +++ t1 = ${t1}+++ this.ignition_time = ${this.ignition_time} +++ this.extinguish_time=${this.extinguish_time}`);
-            return (this.ignition_time < t1) && (this.extinguish_time >= t1); //boolean type
-            // original line: return (this.ignition_time < t1) && (this.extinguish_time >= t1); 
-            // TODO #1 - I changed t1 to t0, need to be proofed 
- 
+
+        let log_value = (this.ignition_time < t1) && (this.extinguish_time >= t1)
+        console.log(`CALL in Point: is_ignited = ${log_value} +++ t0 = ${t0} +++ t1 = ${t1}+++ this.ignition_time = ${this.ignition_time} +++ this.extinguish_time=${this.extinguish_time}`);
+        return (this.ignition_time < t1) && (this.extinguish_time >= t1); //boolean type
+        // original line: return (this.ignition_time < t1) && (this.extinguish_time >= t1); 
+        // TODO #1 - I changed t1 to t0, need to be proofed 
+
     }
 
 
     param(group_name, parameter) {
+        try {
 
-
-            console.log(`CALL param ${this.param}`);
             // lookup param from the cache
             let val = (this._param_cache[group_name] || (this._param_cache[group_name] = {}))[parameter];
+            console.log(`CALL param: val = ${val}`);
+
             if (val) { return val; }
 
             const group = this.runner.parameters[group_name];
@@ -124,12 +125,16 @@ Models.Point = (Point = class Point {
             return this._param_cache[group_name][parameter] = val;
 
 
+
+        } catch (error) {
+            console.error(`TRYCATCH: param() in ModelRunner: ${error.message}`);
+        }
     }
 
     clean() {
-            console.log(`CALL clean ${this.clean}`);
-            this._param_cache = null;
-            return this.runner = null;
+        console.log(`CALL clean ${this.clean}`);
+        this._param_cache = null;
+        return this.runner = null;
 
     }
 });
@@ -215,12 +220,12 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
 
 
         let test_2 = 1.01
-    
-            let test = 0.01
-            console.log("test_2 log: " + test_2);
-            console.log("test log: " + test);
-            console.log("t0 log: " + this.t0);
-    
+
+        let test = 0.01
+        console.log("test_2 log: " + test_2);
+        console.log("test log: " + test);
+        console.log("t0 log: " + this.t0);
+
     }
 
 
@@ -367,7 +372,7 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
         }
         try {*/
         console.log(`log ignited[0].ignition_time: ${ignited[0].ignition_time}`);
-        console.log(`log ignited[99].ignition_time: ${ignited[99].ignition_time}`);        
+        console.log(`log ignited[99].ignition_time: ${ignited[99].ignition_time}`);
         console.log(`log ignited[49].ignition_time: ${ignited[49].ignition_time}`);
 
         let debug_loop_counter = 0 // only for debugging
