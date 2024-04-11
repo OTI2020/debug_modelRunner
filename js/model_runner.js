@@ -74,7 +74,7 @@ Models.Point = (Point = class Point {
     is_ignited(t0, t1) {
 
         let log_value = (this.ignition_time < t1) && (this.extinguish_time >= t1)
-        console.log(`CALL in Point: is_ignited = ${log_value} +++ t0 = ${t0} +++ t1 = ${t1}+++ this.ignition_time = ${this.ignition_time} +++ this.extinguish_time=${this.extinguish_time}`);
+        // console.log(`CALL in Point: is_ignited = ${log_value} +++ t0 = ${t0} +++ t1 = ${t1}+++ this.ignition_time = ${this.ignition_time} +++ this.extinguish_time=${this.extinguish_time}`);
         return (this.ignition_time < t1) && (this.extinguish_time >= t1); //boolean type
         // original line: return (this.ignition_time < t1) && (this.extinguish_time >= t1); 
         // TODO #1 - I changed t1 to t0, need to be proofed 
@@ -208,7 +208,7 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
         this.t_index = 0;
 
         this.parameters = {
-            EXTENTS: { x: 10, y: 10 },
+            EXTENTS: { x: 5, y: 5 },
             RESOLUTION: { x: 1, y: 1, t: 1 },
             SIMULATION: { steps: 15 },
             TOPOGRAPHY: { flat: true }
@@ -216,15 +216,7 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
         /*} catch (error) {
             console.error(`constructor ModelRunner: ${error.message}`);
         }*/
-
-
-
-        let test_2 = 1.01
-
-        let test = 0.01
-        console.log("test_2 log: " + test_2);
-        console.log("test log: " + test);
-        console.log("t0 log: " + this.t0);
+        console.log("log in constructor of Point: t0 = " + this.t0);
 
     }
 
@@ -383,7 +375,7 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
 
             // TODO: this is a performance optimisation, but may lead to some aliasing artifacts. Should check if looking at the neighbours' neighbours makes it better. With the noise introduced by terrain and other variations, this should not have a noticable effect though...
             let bypass_bug = this.t0
-            console.warn(`log error with reading t0: ${this.t0}`);
+            console.log(`log error with reading t0: ${this.t0}`);
             if (this.neighbours(from_point).every(function (neighbour) { return neighbour.ignition_time < bypass_bug; })) { continue; } // no reason to propagate if all points in the neighbourhood are already ignited
 
             // initial list of destination points to check for ignition
