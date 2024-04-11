@@ -208,7 +208,8 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
         this.t_index = 0;
 
         this.parameters = {
-            EXTENTS: { x: 5, y: 5 },
+            EXTENTS: { x: 5, y: 5 }, 
+            // TODO - BUG with the ignition_time when EXTENS is 5x5
             RESOLUTION: { x: 1, y: 1, t: 1 },
             SIMULATION: { steps: 15 },
             TOPOGRAPHY: { flat: true }
