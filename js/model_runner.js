@@ -377,9 +377,9 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
             from_point = ignited.shift(); // get first point in the list
 
             // TODO: this is a performance optimisation, but may lead to some aliasing artifacts. Should check if looking at the neighbours' neighbours makes it better. With the noise introduced by terrain and other variations, this should not have a noticable effect though...
-            let test_bug = this.t0
+            let bypass_bug = this.t0
             console.warn(`log error with reading t0: ${this.t0}`);
-            if (this.neighbours(from_point).every(function (neighbour) { return neighbour.ignition_time < test_bug; })) { continue; } // no reason to propagate if all points in the neighbourhood are already ignited
+            if (this.neighbours(from_point).every(function (neighbour) { return neighbour.ignition_time < bypass_bug; })) { continue; } // no reason to propagate if all points in the neighbourhood are already ignited
 
             // initial list of destination points to check for ignition
             const to_points = this.neighbours(from_point);
