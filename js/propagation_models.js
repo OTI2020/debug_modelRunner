@@ -9,7 +9,7 @@ if (!window.Models) { window.Models = {}; }
 /**
  * @class 
  * @name PropagationModel
- * /
+ */
 window.Models.PropagationModel = (PropagationModel = class PropagationModel { }); //extends Models.Model
 
 
