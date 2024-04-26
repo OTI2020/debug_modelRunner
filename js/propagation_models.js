@@ -52,7 +52,8 @@ window.Models.EllipticalPropagationModel = (EllipticalPropagationModel = class E
 
 
             // adjust spread rate based on terrain and wind
-            const slope = flat === true ? 0 : from_point.param('SLOPE'); // in degrees
+            const slope = flat === true ? 0 : 1// HARD CODED // in degrees
+            // const slope = flat === true ? 0 : from_point.param('SLOPE'); // in degrees /////////////////////// ORIGINAL LINE
             console.log(`slope is ${slope}`);
             if (slope == null) { return; }
 
@@ -60,13 +61,16 @@ window.Models.EllipticalPropagationModel = (EllipticalPropagationModel = class E
             const terrain_factor = (2.0 * slope) / 10.0; // based on firefighter's mannual - spread rate doubles for every 10 degrees of slope
             // theta = from_point.theta
             // aspect points in the direction of the downslope, need to rotate by 180
-            const aspect = flat === true ? 180.0 : from_point.param('ASPECT') + 180.0;
+            const aspect = flat === true ? 180.0 : 0 + 180.0; // HARD CODED
+            //const aspect = flat === true ? 180.0 : from_point.param('ASPECT') + 180.0; /////////////////////// ORIGINAL LINE
             const terrain_theta = (aspect * Math.PI) / 180.0;
 
             // after [Alexander 1985]
-            const wind_speed = (from_point.param('WIND', 'speed_2m'));
+            const wind_speed = 40; // HARD CODED
+            // const wind_speed = (from_point.param('WIND', 'speed_2m')); /////////////////////// ORIGINAL LINE
             const wind_factor = 1.0 + (0.00120 * Math.pow(wind_speed, 2.154));
-            const wind_theta = ((from_point.param('WIND', 'angle') * Math.PI) / 180.0) + Math.PI;
+            const wind_theta = (90 * Math.PI) / 180.0 + Math.PI; // HARD CODED
+            // const wind_theta = ((from_point.param('WIND', 'angle') * Math.PI) / 180.0) + Math.PI; /////////////////////// ORIGINAL LINE
 
             const tx = terrain_factor * Math.cos(terrain_theta);
             const ty = terrain_factor * Math.sin(terrain_theta);
@@ -131,7 +135,8 @@ window.Models.EllipticalPropagationModel = (EllipticalPropagationModel = class E
             // t2 = - p2 - Math.sqrt( p2**2 - q )
 
             // calculate slope between the two points
-            const phi = Math.atan((to_point.param('ELEVATION') - from_point.param('ELEVATION')) / Math.sqrt(Math.pow(xd, 2) + Math.pow(yd, 2)));
+            const phi = Math.atan((1 - 1) / Math.sqrt(Math.pow(xd, 2) + Math.pow(yd, 2))); // HARD CODED
+            // const phi = Math.atan((to_point.param('ELEVATION') - from_point.param('ELEVATION')) / Math.sqrt(Math.pow(xd, 2) + Math.pow(yd, 2))); /////////////////////// ORIGINAL LINE
 
             //tarrival = tarrival * (0.9+Math.random()*0.2)
 
