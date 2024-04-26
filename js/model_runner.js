@@ -211,7 +211,7 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
             EXTENTS: { x: 5, y: 5 }, 
             // TODO - BUG with the ignition_time when EXTENS is 5x5
             RESOLUTION: { x: 1, y: 1, t: 1 },
-            SIMULATION: { steps: 15 },
+            SIMULATION: { steps: 10 },
             TOPOGRAPHY: { flat: true }
         }
         /*} catch (error) {
@@ -364,9 +364,9 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
             console.error(`before loops in step in ModelRunner: ${error.message}`);
         }
         try {*/
-        console.log(`log ignited[0].ignition_time: ${ignited[0].ignition_time}`);
+        console.log(`log ignited[0].ignition_time: ${ignited[0].ignition_time}`);/*
         console.log(`log ignited[99].ignition_time: ${ignited[99].ignition_time}`);
-        console.log(`log ignited[49].ignition_time: ${ignited[49].ignition_time}`);
+        console.log(`log ignited[49].ignition_time: ${ignited[49].ignition_time}`);*/
 
         let debug_loop_counter = 0 // only for debugging
         while (ignited.length > 0) {
