@@ -61,12 +61,15 @@ window.Models.McArthurSpreadRateModel = (McArthurSpreadRateModel = class McArthu
     calculate_spread_rate(point, t0, t1) {
         try {
 
-            const kbdi = point.param('VEGETATION', 'KBDI');
+            const kbdi = 150 // HARD CODED
+            // const kbdi = point.param('VEGETATION', 'KBDI');////////////////////// ORIGINAL LINE
 
             if (!kbdi) { return; }
 
-            const p = point.param('RAIN', 'precipitation');
-            const n = point.param('RAIN', 'days_since_rain');
+            const p = 5 // HRAD CODED
+            // const p = point.param('RAIN', 'precipitation'); ////////////////////// ORIGINAL LINE
+            const n = 14 // HARD CODED
+            // const n = point.param('RAIN', 'days_since_rain'); ////////////////////// ORIGINAL LINE
 
             const d1 = (0.191 * (kbdi + 104) * Math.pow(n + 1, 1.5));
             const d2 = (((3.52 * Math.pow(n + 1, 1.5)) + p) - 1);
@@ -74,15 +77,19 @@ window.Models.McArthurSpreadRateModel = (McArthurSpreadRateModel = class McArthu
             const d = d1 / d2;
             //d = Math.min(d, 10.0)
 
-            const u = point.param('WIND', 'speed_2m');
+            const u = 50 // HARD CODED
+            // const u = point.param('WIND', 'speed_2m'); ////////////////////// ORIGINAL LINE
 
-            const rh = point.param('ATMOSPHERE', 'humidity');
-            const t = point.param('ATMOSPHERE', 'temperature');
+            const rh = 50 // HARD CODED
+            // const rh = point.param('ATMOSPHERE', 'humidity'); ////////////////////// ORIGINAL LINE
+            const t = 35 // HARD CODED
+            // const t = point.param('ATMOSPHERE', 'temperature'); ////////////////////// ORIGINAL LINE
             const mc = (5.658 + (0.04651 * rh) + ((0.0003151 * Math.pow(rh, 3)) / t)) - (0.185 * Math.pow(t, 0.77));
             const ffdi = 34.81 * Math.exp(0.987 * Math.log(d)) * Math.pow(mc, -2.1) * Math.exp(0.0234 * u);
 
             // fuel load
-            const w = point.param('VEGETATION', 'w');
+            const w = 1 // HARD CODED
+            // const w = point.param('VEGETATION', 'w'); ////////////////////// ORIGINAL LINE
 
             return point.spread_rate = 0.0012 * ffdi * w;
 
@@ -117,13 +124,21 @@ window.Models.CheneySpreadRateModel = (CheneySpreadRateModel = class CheneySprea
     calculate_spread_rate(point, t0, t1) {
         try {
 
-            const grazing = point.param('VEGETATION', 'grazing');
+            const grazing = 0 // HARD CODED
+            // const grazing = point.param('VEGETATION', 'grazing'); ////////////////////// ORIGINAL LINE
+
 
             if (grazing == null) { return; }
 
-            const u = point.param('WIND', 'speed_2m');
-            const c = point.param('VEGETATION', 'C');
-            const mc = point.param('VEGETATION', 'FMC');
+            const u = 50 // HRAD CODED
+            // const u = point.param('WIND', 'speed_2m'); ////////////////////// ORIGINAL LINE
+
+            const c = 100 // HARD CODED
+            // const c = point.param('VEGETATION', 'C'); ////////////////////// ORIGINAL LINE
+
+            const mc = 1.0 // HARD CODED
+            // const mc = point.param('VEGETATION', 'FMC'); ////////////////////// ORIGINAL LINE
+
 
             const dm = mc < 12 ?
                 Math.exp(-0.108 * mc)
@@ -163,7 +178,7 @@ window.Models.CheneySpreadRateModel = (CheneySpreadRateModel = class CheneySprea
 
             return point.spread_rate = r;
         } catch (error) {
-            console.error(`calculate_spread_rate McArthurSpreadRateModel ${error.message}`);
+            console.error(`calculate_spread_rate CheneySpreadRateModel ${error.message}`);
         }
     }
 });
