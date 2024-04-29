@@ -65,8 +65,8 @@ Models.Point = (Point = class Point {
         this.index = index;
         this.position = position;
         this.runner = runner;
-        this.ignition_time = 0 // Infinity; // ignition time
-        this.extinguish_time = 2 // Infinity;
+        this.ignition_time = 0; // ignition time
+        this.extinguish_time = 1 // Infinity;
         this._param_cache = {};
 
     }
@@ -74,7 +74,7 @@ Models.Point = (Point = class Point {
     is_ignited(t0, t1) {
 
         let log_value = (this.ignition_time < t1) && (this.extinguish_time >= t1)
-        // console.log(`CALL in Point: is_ignited = ${log_value} +++ t0 = ${t0} +++ t1 = ${t1}+++ this.ignition_time = ${this.ignition_time} +++ this.extinguish_time=${this.extinguish_time}`);
+        console.log(`CALL in Point: is_ignited = ${log_value} +++ t0 = ${t0} +++ t1 = ${t1} +++ this.ignition_time = ${this.ignition_time} +++ this.extinguish_time = ${this.extinguish_time}`);
         return (this.ignition_time < t1) && (this.extinguish_time >= t1); //boolean type
         // original line: return (this.ignition_time < t1) && (this.extinguish_time >= t1); 
         // TODO #1 - I changed t1 to t0, need to be proofed 
@@ -224,7 +224,6 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
 
     neighbours(point) {
         //try {
-        console.log("CALL neughbours");
 
         if (point.neighbours) { return point.neighbours; }
         const neighbour = (x, y) => {
@@ -364,19 +363,21 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
             console.error(`before loops in step in ModelRunner: ${error.message}`);
         }
         try {*/
-        console.log(`log ignited[0].ignition_time: ${ignited[0].ignition_time}`);/*
-        console.log(`log ignited[99].ignition_time: ${ignited[99].ignition_time}`);
-        console.log(`log ignited[49].ignition_time: ${ignited[49].ignition_time}`);*/
+        console.log(`log ignited[0].ignition_time: ${JSON.stringify(ignited)}`); //[0].ignition_time}`);
+        console.log(`log ignited[10].ignition_time: ${ignited[20].ignition_time}`);
+        console.log(`log ignited[1].ignition_time: ${ignited[1].ignition_time}`);
 
         let debug_loop_counter = 0 // only for debugging
+        let debug_inner_loop_counter = 0
+        console.log(ignited.length + " <- this is length of ignited points array");
+
         while (ignited.length > 0) {
             debug_loop_counter++
-            console.log(`CALL outer while-loop in step() +++ loop_counter: ${debug_loop_counter}`);
             from_point = ignited.shift(); // get first point in the list
 
-            // TODO: this is a performance optimisation, but may lead to some aliasing artifacts. Should check if looking at the neighbours' neighbours makes it better. With the noise introduced by terrain and other variations, this should not have a noticable effect though...
+            // TODO: this is a performance optimisation, but may lead to some aliasing artifacts. Should check if looking at the neighbours' neighbours makes it better. With the noise introduced by terrain and other variations, this s hould not have a noticable effect though...
             let bypass_bug = this.t0
-            console.log(`log error with reading t0: ${this.t0}`);
+            // console.log(`log error with reading t0: ${this.t0}`);
             if (this.neighbours(from_point).every(function (neighbour) { return neighbour.ignition_time < bypass_bug; })) { continue; } // no reason to propagate if all points in the neighbourhood are already ignited
 
             // initial list of destination points to check for ignition
@@ -384,8 +385,9 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
 
             const to_points_processed = [];
 
+
             while (to_points.length > 0) {
-                console.log("CALL inner while-loop in step() ");
+                debug_inner_loop_counter++
 
                 const to_point = to_points.shift();
 
@@ -409,6 +411,8 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
                 }
             }
         }
+        console.log(`CALL outer while-loop in step() +++ loop_counter: ${debug_loop_counter}`);
+        console.log(`CALL inner while-loop in step() +++ inner_loop_counter: ${debug_inner_loop_counter}`);
         /*        } catch (error) {
             console.error(`loops in step in ModelRunner: ${error.message}`);
         }

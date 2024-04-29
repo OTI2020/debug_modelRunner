@@ -17,6 +17,8 @@ console.log("first index in grid: " + JSON.stringify(runner.grid[0][0].index));
 console.log("first position in grid: " + JSON.stringify(runner.grid[0][0].position));
 console.log("first runner in grid: " + runner.grid[0][0].runner);
 console.log("first ignition_time in grid: " + JSON.stringify(runner.grid[0][0].ignition_time));
+console.log("next ignition_time in grid: " + JSON.stringify(runner.grid[2][2].ignition_time));
+console.log("last ignition_time in grid: " + JSON.stringify(runner.grid[4][4].ignition_time));
 console.log("first extinguish_time in grid: " + JSON.stringify(runner.grid[0][0].extinguish_time));
 console.log("first _param_cache in grid: " + JSON.stringify(runner.grid[0][0]._param_cache));
 console.log("first spread_rate in grid: " + JSON.stringify(runner.grid[0][0].spread_rate));
