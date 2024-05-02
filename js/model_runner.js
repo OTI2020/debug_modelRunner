@@ -354,8 +354,11 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
             }
         }
 
-        //ignited = sortBy(ignited, 'ignition_time')
-        console.log(`log ignited: ${ignited}`);
+        /*
+        TODO #2 BUG sortBy is not a function
+        ignited = sortBy(ignited, 'ignition_time')
+        */
+       console.log(`log ignited: ${ignited}`);
 
         // now process the list of ignited points until there are none left
 
@@ -363,7 +366,7 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
             console.error(`before loops in step in ModelRunner: ${error.message}`);
         }
         try {*/
-        console.log(`log ignited[0].ignition_time: ${JSON.stringify(ignited)}`); //[0].ignition_time}`);
+        console.log(`log ignited[0].ignition_time: ${ignited}`); //[0].ignition_time}`);
         console.log(`log ignited[10].ignition_time: ${ignited[20].ignition_time}`);
         console.log(`log ignited[1].ignition_time: ${ignited[1].ignition_time}`);
 
