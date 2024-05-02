@@ -366,9 +366,11 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
             console.error(`before loops in step in ModelRunner: ${error.message}`);
         }
         try {*/
-        console.log(`log ignited[0].ignition_time: ${ignited}`); //[0].ignition_time}`);
+        console.log(`log ignited ${ignited}`); //[0].ignition_time}`);
+        /*
         console.log(`log ignited[10].ignition_time: ${ignited[20].ignition_time}`);
         console.log(`log ignited[1].ignition_time: ${ignited[1].ignition_time}`);
+*/
 
         let debug_loop_counter = 0 // only for debugging
         let debug_inner_loop_counter = 0
@@ -404,6 +406,7 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
                 const arrival_time = this.propagation_model.calculate_arrival_time(from_point, to_point, this.t0, t1, this.parameters.TOPOGRAPHY['flat']);
                 if (arrival_time < to_point.ignition_time) {
                     to_point.ignition_time = arrival_time;
+                    console.log("DEBUG ignition time");
                     // process the to_point (again) and its neighbourhood if it ignites in this time step and is not already in the queue
                     if (arrival_time < t1) {
                         if (!Array.from(ignited).includes(to_point)) { ignited.push(to_point); }
