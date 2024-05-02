@@ -100,6 +100,7 @@ window.Models.EllipticalPropagationModel = (EllipticalPropagationModel = class E
 
             // spread rate is in km/h, we need m/h
             let r = (from_point.spread_rate * 1000.0) / 60.0;
+            console.log("from_point.spread_rate " + from_point.spread_rate);
 
             // TODO HACK - this is to correct the ellipsis shape for high winds - need to find the problem with the algorithm!
             r = r / ((-0.0097 * wind_speed) + 1.0558);
@@ -147,6 +148,7 @@ window.Models.EllipticalPropagationModel = (EllipticalPropagationModel = class E
             tarrival = tarrival / Math.cos(phi);
             tarrival = from_point.ignition_time + tarrival;
 
+            console.log("DEBUG tarrival for next ignition_time ... " + tarrival);
             return tarrival;
         } catch (error) {
             console.error(`calculate_arrival_time EllipticalPropagationModel ${error.message}`);
