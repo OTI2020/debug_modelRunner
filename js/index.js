@@ -22,7 +22,7 @@ console.log("last ignition_time in grid: " + JSON.stringify(runner.grid[4][4].ig
 console.log("first extinguish_time in grid: " + JSON.stringify(runner.grid[0][0].extinguish_time));
 console.log("first _param_cache in grid: " + JSON.stringify(runner.grid[0][0]._param_cache));
 console.log("first spread_rate in grid: " + JSON.stringify(runner.grid[0][0].spread_rate));
-console.log("first neighbours in grid: " + JSON.stringify(runner.grid[0][0].neighbours));
+console.log("first neighbours in grid: " + runner.grid[0][0].neighbours);
 
 console.timeEnd();
 
