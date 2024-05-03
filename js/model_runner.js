@@ -208,11 +208,15 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
         this.t_index = 0;
 
         this.parameters = {
-            EXTENTS: { x: 5, y: 5 }, 
-            // TODO - BUG with the ignition_time when EXTENS is 5x5
+            EXTENTS: { x: 5, y: 5 },
             RESOLUTION: { x: 1, y: 1, t: 1 },
-            SIMULATION: { steps: 10 },
-            TOPOGRAPHY: { flat: true }
+            SIMULATION: { steps: 10, Spread_rate_model:  "McArthurSpreadRateModel"},
+            TOPOGRAPHY: { flat: true },
+            IGNITION_POINTS: [
+                { "lat": -35.62, "lng": 148.80, "x": 219, "y": 345, "debug_x": 1, "debug_y": 1 },
+                { "lat": -35.65, "lng": 148.84, "x": 412, "y": 590, "debug_x": 3, "debug_y": 0 },
+                { "lat": -35.71, "lng": 148.88, "x": 644, "y": 1039, "debug_x": 0, "debug_y": 3 }
+            ]
         }
         /*} catch (error) {
             console.error(`constructor ModelRunner: ${error.message}`);
@@ -277,6 +281,8 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
         console.assert(`report: ${this.report_progress()}`);
         console.log(`Extents: ${JSON.stringify(this.parameters.EXTENTS)}`);
         console.log(`Resolution: ${JSON.stringify(this.parameters.RESOLUTION)}`);
+        console.log(`Simulation: ${JSON.stringify(this.parameters.SIMULATION)}`);
+        console.log(`ignition Points: ${JSON.stringify(this.parameters.IGNITION_POINTS)}`);
         this.grid = (
             __range__(0, this.parameters.EXTENTS.y - 1, true).map((y) => (
                 __range__(0, this.parameters.EXTENTS.x - 1, true).map((x) => new Point(
@@ -358,7 +364,7 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
         TODO #2 BUG sortBy is not a function
         ignited = sortBy(ignited, 'ignition_time')
         */
-       console.log(`log ignited: ${ignited}`);
+        console.log(`log ignited: ${ignited}`);
 
         // now process the list of ignited points until there are none left
 
