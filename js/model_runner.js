@@ -65,8 +65,8 @@ Models.Point = (Point = class Point {
         this.index = index;
         this.position = position;
         this.runner = runner;
-        this.ignition_time = 0; // ignition time
-        this.extinguish_time = 1 // Infinity;
+        this.ignition_time = Infinity; // ignition time
+        this.extinguish_time = Infinity // Infinity;
         this._param_cache = {};
 
     }
@@ -352,6 +352,16 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
         const ignited = [];
         console.log("ignited log: " + JSON.stringify(ignited));
 
+
+        // add IGNITION_POINTS to list ignited
+        for (let i = 0; i < this.parameters.IGNITION_POINTS.length; i++) {
+            const ix = this.parameters.IGNITION_POINTS[i].debug_x
+            const iy = this.parameters.IGNITION_POINTS[i].debug_y
+            this.grid[ix][iy].ignition_time = 0 // very first ignition          
+            ignited.push(this.grid[ix][iy])            
+        }
+        console.log("ignited Points after adding IGNITION_POINTS: " + ignited);
+
         for (y = 0, end2 = this.parameters.EXTENTS.y - 1, asc2 = 0 <= end2; asc2 ? y <= end2 : y >= end2; asc2 ? y++ : y--) {
             var asc3, end3;
             for (x = 0, end3 = this.parameters.EXTENTS.x - 1, asc3 = 0 <= end3; asc3 ? x <= end3 : x >= end3; asc3 ? x++ : x--) { // x and y are the indices for from_point
@@ -364,7 +374,6 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
         TODO #2 BUG sortBy is not a function
         ignited = sortBy(ignited, 'ignition_time')
         */
-        console.log(`log ignited: ${ignited}`);
 
         // now process the list of ignited points until there are none left
 
@@ -412,7 +421,6 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
                 const arrival_time = this.propagation_model.calculate_arrival_time(from_point, to_point, this.t0, t1, this.parameters.TOPOGRAPHY['flat']);
                 if (arrival_time < to_point.ignition_time) {
                     to_point.ignition_time = arrival_time;
-                    console.log("DEBUG ignition time");
                     // process the to_point (again) and its neighbourhood if it ignites in this time step and is not already in the queue
                     if (arrival_time < t1) {
                         if (!Array.from(ignited).includes(to_point)) { ignited.push(to_point); }
@@ -441,6 +449,10 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
             }
         }
 
+        fill_table(ignited) // only for debugging
+        console.log("ignited after fill_table " + ignited + " empty???");
+
+
 
 
 
@@ -453,6 +465,7 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
         /*} catch (error) {
             console.error(`step in ModelRunner: ${error.message}`);
         }*/
+
     }
 
 });
@@ -475,5 +488,6 @@ function __range__(left, right, inclusive) {
     for (let i = left; ascending ? i < end : i > end; ascending ? i++ : i--) {
         range.push(i);
     }
+    console.log("CALL __range__");
     return range;
 }
