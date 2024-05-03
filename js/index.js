@@ -35,16 +35,9 @@ console.timeEnd();
 function fill_table(in_list) {
     let debug_counter = 0
     for (let i = 0; i < in_list.length; i++) {
-        console.log("i = " + i);
-        console.log("test DOM: " + document.getElementById("result_table"));
-        console.log("test DOM: " + document.getElementById("x0y0").value);
-        console.log("test DOM: " + document.getElementById("x1y1").value);
-        console.log("test DOM: " + document.getElementById("x1y1").textContent);
-
         // Code, der den Fehler auslösen kann
         let table_cell = document.getElementById(`x${in_list[i].index.x}y${in_list[i].index.y}`); // uses id of needed cell in the table
         let roundedNumber = Math.round(in_list[i].ignition_time * 1000) / 1000
-        console.log("table_cell " + table_cell + ` x${in_list[i].index.x}y${in_list[i].index.y}`);
         table_cell.textContent = roundedNumber  // in_list[i].id;
 
         debug_counter++
