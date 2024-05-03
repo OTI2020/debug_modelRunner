@@ -73,7 +73,7 @@ Models.Point = (Point = class Point {
 
     is_ignited(t0, t1) {
 
-        let log_value = (this.ignition_time < t1) && (this.extinguish_time >= t1)
+        let log_value = (this.ignition_time < t1) && (this.extinguish_time >= t1) // only for debugging
         console.log(`CALL in Point: is_ignited = ${log_value} +++ t0 = ${t0} +++ t1 = ${t1} +++ this.ignition_time = ${this.ignition_time} +++ this.extinguish_time = ${this.extinguish_time}`);
         return (this.ignition_time < t1) && (this.extinguish_time >= t1); //boolean type
         // original line: return (this.ignition_time < t1) && (this.extinguish_time >= t1); 
@@ -152,11 +152,11 @@ Models.Point = (Point = class Point {
  * 
  * @constructor
  * @param {Object} [parameters] - An optional configuration object for the simulation.
- * @property {Object} parameters - The simulation parameters.
  * @property {Object} parameters.EXTENTS - The extent of the simulated landscape (width and height in number of cells).
  * @property {Object} parameters.RESOLUTION - The resolution of the simulation grid (cell size in x, y, and time dimensions).
- * @property {Object} parameters.SIMULATION - The simulation settings (number of timesteps).
+ * @property {Object} parameters.SIMULATION - The simulation settings (number of timesteps) and choosen model.
  * @property {Object} parameters.TOPOGRAPHY - Options related to the simulated topography (currently supports a flat surface only).
+ * @property {Object} parameters.IGNITION_POINTS - List of Ignition Points. Real-life coordinates and index in grid
  * @property {Models.SimpleSpreadRateModel} spread_rate_model - An instance of the spread rate model used in the simulation.
  * @property {Models.EllipticalPropagationModel} propagation_model - An instance of the propagation model used in the simulation.
  * @property {Models.SimpleBurnModel} burn_model - An instance of the burn model used in the simulation.
@@ -216,7 +216,7 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
                 { "lat": -35.62, "lng": 148.80, "x": 219, "y": 345, "debug_x": 1, "debug_y": 1 },
                 { "lat": -35.65, "lng": 148.84, "x": 412, "y": 590, "debug_x": 3, "debug_y": 0 },
                 { "lat": -35.71, "lng": 148.88, "x": 644, "y": 1039, "debug_x": 0, "debug_y": 3 }
-            ]
+            ] // HARD CODED
         }
         /*} catch (error) {
             console.error(`constructor ModelRunner: ${error.message}`);
