@@ -326,7 +326,7 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
         let asc2, end2;
         let asc4, end4;
         const t1 = this.t0 + this.parameters.RESOLUTION.t;
-        console.log("log t1 = " + t1);
+        console.log("log definition of t1 = " + t1);
 
         const progress = (100.0 * this.t_index) / this.parameters.SIMULATION.steps;
         console.log(`log progress: ${progress}`);
@@ -377,7 +377,8 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
                 }
             }
         }
-
+        console.log("ignited Points after adding IGNITION_POINTS: " + ignited);
+        fill_table(ignited) // only for debugging
         /*
         TODO #2 BUG sortBy is not a function
         ignited = sortBy(ignited, 'ignition_time')
