@@ -73,11 +73,13 @@ Models.Point = (Point = class Point {
 
     is_ignited(t0, t1) {
 
+        /*
         let log_value = (this.ignition_time < t1) && (this.extinguish_time >= t1) // only for debugging
         console.log(`CALL in Point: is_ignited = ${log_value} +++ t0 = ${t0} +++ t1 = ${t1} +++ this.ignition_time = ${this.ignition_time} +++ this.extinguish_time = ${this.extinguish_time}`);
+        */
         return (this.ignition_time < t1) && (this.extinguish_time >= t1); //boolean type
         // original line: return (this.ignition_time < t1) && (this.extinguish_time >= t1); 
-        // TODO #1 - I changed t1 to t0, need to be proofed 
+        // TODO #1 - I changed t1 to t0, need to be proofed // ???
 
     }
 
@@ -199,7 +201,7 @@ Models.Point = (Point = class Point {
 Models.ModelRunner = (ModelRunner = class ModelRunner {
     constructor() {
 
-        this.spread_rate_model = new Models.SimpleSpreadRateModel
+        this.spread_rate_model = new Models.McArthurSpreadRateModel
         this.propagation_model = new Models.EllipticalPropagationModel
         this.burn_model = new Models.SimpleBurnModel
         this.grid = null;
@@ -210,7 +212,7 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
         this.parameters = {
             EXTENTS: { x: 5, y: 5 },
             RESOLUTION: { x: 1, y: 1, t: 1 },
-            SIMULATION: { steps: 10, Spread_rate_model:  "McArthurSpreadRateModel"},
+            SIMULATION: { steps: 10, Spread_rate_model: "McArthurSpreadRateModel" },
             TOPOGRAPHY: { flat: true },
             IGNITION_POINTS: [
                 { "lat": -35.62, "lng": 148.80, "x": 219, "y": 345, "debug_x": 1, "debug_y": 1 },
@@ -358,15 +360,21 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
             const ix = this.parameters.IGNITION_POINTS[i].debug_x
             const iy = this.parameters.IGNITION_POINTS[i].debug_y
             this.grid[ix][iy].ignition_time = 0 // very first ignition          
-            ignited.push(this.grid[ix][iy])            
+            // ignited.push(this.grid[ix][iy]) // redundant because we fill ignited Array with these points in the next lines
+            // is_ignited() returns TRUE if ignition_time = 0
         }
         console.log("ignited Points after adding IGNITION_POINTS: " + ignited);
+        fill_table(ignited) // only for debugging
+
 
         for (y = 0, end2 = this.parameters.EXTENTS.y - 1, asc2 = 0 <= end2; asc2 ? y <= end2 : y >= end2; asc2 ? y++ : y--) {
             var asc3, end3;
             for (x = 0, end3 = this.parameters.EXTENTS.x - 1, asc3 = 0 <= end3; asc3 ? x <= end3 : x >= end3; asc3 ? x++ : x--) { // x and y are the indices for from_point
                 from_point = this.grid[y][x];
-                if (from_point.is_ignited(this.t0, t1)) { ignited.push(from_point); }
+                if (from_point.is_ignited(this.t0, t1)) {
+                    console.log(JSON.stringify(from_point.position) + " <- from_point.position");
+                    ignited.push(from_point);
+                }
             }
         }
 
@@ -449,7 +457,7 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
             }
         }
 
-        fill_table(ignited) // only for debugging
+        fill_table(ignited) // only for debugging // only OVERWRITE when not empty
         console.log("ignited after fill_table " + ignited + " empty???");
 
 
