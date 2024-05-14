@@ -68,7 +68,7 @@ window.Models.EllipticalPropagationModel = (EllipticalPropagationModel = class E
         const terrain_theta = (aspect * Math.PI) / 180.0;
 
         // after [Alexander 1985]
-        const wind_speed = 40; // HARD CODED
+        const wind_speed = 25; // HARD CODED
         // const wind_speed = (from_point.param('WIND', 'speed_2m')); /////////////////////// ORIGINAL LINE
         const wind_factor = 1.0 + (0.00120 * Math.pow(wind_speed, 2.154));
         const wind_theta = (90 * Math.PI) / 180.0 + Math.PI; // HARD CODED

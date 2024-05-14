@@ -26,7 +26,7 @@ window.Models.SimpleSpreadRateModel = (SimpleSpreadRateModel = class SimpleSprea
             // point.flanking_spread_rate = (0.1 + r*0.2) * 3
 
             point.theta = 0;
-            return point.spread_rate = 1;
+            return point.spread_rate = 2;
         } catch (error) {
             console.error(`calculate_spread_rate SimpleSpreadRateModel: ${error.message}`);
         }
