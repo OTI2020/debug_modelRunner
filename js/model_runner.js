@@ -378,7 +378,7 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
             }
         }
         console.log("ignited Points after adding IGNITION_POINTS: " + ignited);
-        fill_table(ignited) // only for debugging
+        // fill_table(ignited) // only for debugging
         /*
         TODO #2 BUG sortBy is not a function
         ignited = sortBy(ignited, 'ignition_time')
