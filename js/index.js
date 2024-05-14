@@ -5,6 +5,26 @@ const runner = new Models.ModelRunner();
 // console.log(`init ModelRunner: ${JSON.stringify(runner, null, 10)}`)
 runner.init();
 runner.step() // how many times to calls this function???
+runner.step() // how many times to calls this function???
+runner.step() // how many times to calls this function???
+runner.step() // how many times to calls this function???
+runner.step() // how many times to calls this function???
+runner.step() // how many times to calls this function???
+runner.step() // how many times to calls this function???
+runner.step() // how many times to calls this function???
+runner.step() // how many times to calls this function???
+runner.step() // how many times to calls this function???
+runner.step() // how many times to calls this function???
+runner.step() // how many times to calls this function???
+runner.step() // how many times to calls this function???
+runner.step() // how many times to calls this function???
+runner.step() // how many times to calls this function???
+runner.step() // how many times to calls this function???
+runner.step() // how many times to calls this function???
+runner.step() // how many times to calls this function???
+runner.step() // how many times to calls this function???
+runner.step() // how many times to calls this function???
+
 
 console.log("++++++++++++++++++++++++");
 console.log("+++ LOGs in index.js +++");
