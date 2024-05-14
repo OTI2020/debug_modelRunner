@@ -48,18 +48,54 @@ for (let i = 0; i < runner.grid.length; i++) {
     }
 }
 function getColorForValue(value) {
-    if (value > 5) {
-        return 'red';
-    } else if (value > 2) {
-        return 'yellow';
-    } else if (value > 1) {
-        return 'green';
-    } else {
-        return 'blue';
+    // thresholds for 5 colors
+    const threshold_5 = find_latest_ignition_time(runner.grid)
+
+
+    // thresholds are relative to the latest arrival time 
+    // using golden ratio:
+    // φ = (1 + √5) / 2 ≈ 1.618
+    const PHI = (1 + Math.sqrt(5)) / 2;
+    const threshold_4 = threshold_5 - (threshold_5 / PHI);
+    const threshold_3 = threshold_4 - (threshold_4 / PHI);
+    const threshold_2 = threshold_3 - (threshold_3 / PHI);
+    const threshold_1 = threshold_2 - (threshold_2 / PHI);
+
+    if (0 <= value < threshold_1) {
+        return '#B53302';
+    } else if (0 <= value < threshold_1) {
+        return '#E97D01';
+    } else if (threshold_1 <= value < threshold_2) {
+        return '#FCAC23';
+    } else if (threshold_2 <= value < threshold_3) {
+        return '#FECA64';
+    } else if (threshold_3 <= value < threshold_4) {
+        return '#FEDB9B';
+    } else if (threshold_4 <= value) {
+        return '#E97D01';
     }
+    /*
+    { min: 0, max: threshold_1, color: "#B53302" },
+    { min: threshold_1, max: threshold_2, color: "#E97D01" },
+    { min: threshold_2, max: threshold_3, color: "#FCAC23" },
+    { min: threshold_3, max: threshold_4, color: "#FECA64" },
+    { min: threshold_4, max: threshold_5 + 1, color: "#FEDB9B"*/
 }
 
+function find_latest_ignition_time(in_grid) {
+    let latest_time = -Infinity; 
 
+    for (let i = 0; i < in_grid.length; i++) {
+        for (let j = 0; j < in_grid[i].length; j++) {
+            if (in_grid[i][j].ignition_time !=Infinity && in_grid[i][j].ignition_time > latest_time) {
+                latest_time = in_grid[i][j].ignition_time;
+            }
+        }
+    }
+    console.log("latest_time in grid: " + latest_time);
+
+    return latest_time;
+}
 
 
 
