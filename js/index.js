@@ -26,6 +26,52 @@ runner.step() // how many times to calls this function???
 runner.step() // how many times to calls this function???
 
 
+
+///////////////////////////////////////////////////////
+// Canvas - plot grid
+///////////////////////////////////////////////////////
+const cellWidth = 20; //pixel?
+const cellHeight = 20;
+const canvas = document.getElementById('myCanvas');
+const ctx = canvas.getContext('2d');
+for (let i = 0; i < runner.grid.length; i++) {
+    for (let j = 0; j < runner.grid[i].length; j++) {
+        const x = j * cellWidth;
+        const y = i * cellHeight;
+        const value = runner.grid[i][j].ignition_time;
+
+        // Farbe basierend auf Wert festlegen
+        ctx.fillStyle = getColorForValue(value);
+
+        // Rechteck zeichnen
+        ctx.fillRect(x, y, cellWidth, cellHeight);
+    }
+}
+function getColorForValue(value) {
+    if (value > 5) {
+        return 'red';
+    } else if (value > 2) {
+        return 'yellow';
+    } else if (value > 1) {
+        return 'green';
+    } else {
+        return 'blue';
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 console.log("++++++++++++++++++++++++");
 console.log("+++ LOGs in index.js +++");
 console.log("++++++++++++++++++++++++");
