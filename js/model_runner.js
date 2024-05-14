@@ -458,7 +458,7 @@ Models.ModelRunner = (ModelRunner = class ModelRunner {
             }
         }
 
-        fill_table(ignited) // only for debugging // only OVERWRITE when not empty
+        //fill_table(ignited) // only for debugging // only OVERWRITE when not empty
         console.log("ignited after fill_table " + ignited + " empty???");
 
 
