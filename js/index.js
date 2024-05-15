@@ -34,6 +34,8 @@ const cellWidth = 20; //pixel?
 const cellHeight = 20;
 const canvas = document.getElementById('myCanvas');
 const ctx = canvas.getContext('2d');
+const threshold_5 = find_latest_ignition_time(runner.grid)
+
 for (let i = 0; i < runner.grid.length; i++) {
     for (let j = 0; j < runner.grid[i].length; j++) {
         const x = j * cellWidth;
@@ -42,16 +44,14 @@ for (let i = 0; i < runner.grid.length; i++) {
 
         // Farbe basierend auf Wert festlegen
         ctx.fillStyle = getColorForValue(value);
+        console.log("ctx.fillStyle " + ctx.fillStyle);
 
         // Rechteck zeichnen
         ctx.fillRect(x, y, cellWidth, cellHeight);
     }
 }
-function getColorForValue(value) {
+function getColorForValue(in_value) {
     // thresholds for 5 colors
-    const threshold_5 = find_latest_ignition_time(runner.grid)
-
-
     // thresholds are relative to the latest arrival time 
     // using golden ratio:
     // φ = (1 + √5) / 2 ≈ 1.618
@@ -60,40 +60,33 @@ function getColorForValue(value) {
     const threshold_3 = threshold_4 - (threshold_4 / PHI);
     const threshold_2 = threshold_3 - (threshold_3 / PHI);
     const threshold_1 = threshold_2 - (threshold_2 / PHI);
+    // console.log(`log thresholds: 1=${threshold_1}, 2=${threshold_2}, 3=${threshold_3}, 4=${threshold_4}, 5=${threshold_5}, `);
 
-    if (0 <= value < threshold_1) {
+    if (0 <= in_value < threshold_1) {
         return '#B53302';
-    } else if (0 <= value < threshold_1) {
+    } else if (0 <= in_value && in_value < threshold_1) {
         return '#E97D01';
-    } else if (threshold_1 <= value < threshold_2) {
+    } else if (threshold_1 <= in_value && in_value < threshold_2) {
         return '#FCAC23';
-    } else if (threshold_2 <= value < threshold_3) {
+    } else if (threshold_2 <= in_value && in_value < threshold_3) {
         return '#FECA64';
-    } else if (threshold_3 <= value < threshold_4) {
+    } else if (threshold_3 <= in_value && in_value < threshold_4) {
         return '#FEDB9B';
-    } else if (threshold_4 <= value) {
+    } else if (threshold_4 <= in_value) {
         return '#E97D01';
     }
-    /*
-    { min: 0, max: threshold_1, color: "#B53302" },
-    { min: threshold_1, max: threshold_2, color: "#E97D01" },
-    { min: threshold_2, max: threshold_3, color: "#FCAC23" },
-    { min: threshold_3, max: threshold_4, color: "#FECA64" },
-    { min: threshold_4, max: threshold_5 + 1, color: "#FEDB9B"*/
 }
 
 function find_latest_ignition_time(in_grid) {
-    let latest_time = -Infinity; 
+    let latest_time = -Infinity;
 
     for (let i = 0; i < in_grid.length; i++) {
         for (let j = 0; j < in_grid[i].length; j++) {
-            if (in_grid[i][j].ignition_time !=Infinity && in_grid[i][j].ignition_time > latest_time) {
+            if (in_grid[i][j].ignition_time != Infinity && in_grid[i][j].ignition_time > latest_time) {
                 latest_time = in_grid[i][j].ignition_time;
             }
         }
     }
-    console.log("latest_time in grid: " + latest_time);
-
     return latest_time;
 }
 
