@@ -40,16 +40,23 @@ for (let i = 0; i < runner.grid.length; i++) {
     for (let j = 0; j < runner.grid[i].length; j++) {
         const x = j * cellWidth;
         const y = i * cellHeight;
-        const value = runner.grid[i][j].ignition_time;
+        const value = runner.grid[j][i].ignition_time;
 
-        // Farbe basierend auf Wert festlegen
+        // conditional coloring depending on ignition_time
         ctx.fillStyle = getColorForValue(value);
-        console.log("ctx.fillStyle " + ctx.fillStyle);
-
-        // Rechteck zeichnen
+        // rectangle
         ctx.fillRect(x, y, cellWidth, cellHeight);
     }
 }
+// highlight ignition Points
+for (let p = 0; p < runner.parameters.IGNITION_POINTS.length; p++) {
+    const x = runner.parameters.IGNITION_POINTS[p].debug_x * cellWidth
+    const y = runner.parameters.IGNITION_POINTS[p].debug_y * cellHeight
+    ctx.fillStyle = '#FF0000'
+    ctx.fillRect(x, y, cellWidth, cellHeight);
+    console.log("runner.parameters.IGNITION_POINTS[p] " + runner.parameters.IGNITION_POINTS[p].debug_x + " / " + runner.parameters.IGNITION_POINTS[p].debug_y)
+}
+
 function getColorForValue(in_value) {
     // thresholds for 5 colors
     // thresholds are relative to the latest arrival time 
@@ -62,18 +69,16 @@ function getColorForValue(in_value) {
     const threshold_1 = threshold_2 - (threshold_2 / PHI);
     // console.log(`log thresholds: 1=${threshold_1}, 2=${threshold_2}, 3=${threshold_3}, 4=${threshold_4}, 5=${threshold_5}, `);
 
-    if (0 <= in_value < threshold_1) {
+    if (0 <= in_value && in_value < threshold_1) {
         return '#B53302';
-    } else if (0 <= in_value && in_value < threshold_1) {
-        return '#E97D01';
     } else if (threshold_1 <= in_value && in_value < threshold_2) {
-        return '#FCAC23';
-    } else if (threshold_2 <= in_value && in_value < threshold_3) {
-        return '#FECA64';
-    } else if (threshold_3 <= in_value && in_value < threshold_4) {
-        return '#FEDB9B';
-    } else if (threshold_4 <= in_value) {
         return '#E97D01';
+    } else if (threshold_2 <= in_value && in_value < threshold_3) {
+        return '#FCAC23';
+    } else if (threshold_3 <= in_value && in_value < threshold_4) {
+        return '#FECA64';
+    } else if (threshold_4 <= in_value) {
+        return '#FEDB9B';
     }
 }
 
@@ -90,7 +95,18 @@ function find_latest_ignition_time(in_grid) {
     return latest_time;
 }
 
-
+var download = function () {
+    const canvas = document.getElementById('myCanvas');
+    if (!canvas) {
+      console.error("Canvas element not found!");
+      return;
+    }
+    var link = document.createElement('a');
+    link.download = 'debug-ember-sim-test.png';
+    link.href = canvas.toDataURL()
+    link.click();
+}
+// download()
 
 
 
